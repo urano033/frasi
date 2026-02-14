@@ -323,8 +323,8 @@
 
     <div class="container">
         <header>
-            <h1>💕 50 Qualità di Te 💕</h1>
-            <p>Scopri ogni giorno una qualità speciale</p>
+            <h1>💕 50 ragioni del perché sei importante 💕</h1>
+            <p>Scoprile tutte!</p>
         </header>
 
         <div class="heart-wrapper">
@@ -346,56 +346,56 @@
 
     <script>
         const QUALITIES = [
-            "Sei dolce come il miele",
-            "Hai un sorriso che illumina tutto",
-            "Sei intelligente e affascinante",
-            "La tua risata è contagiosa",
-            "Sei incredibilmente creativa",
-            "Hai un cuore d'oro",
-            "Sei forte e resiliente",
-            "La tua lealtà è rara",
-            "Sei bellissima da togliere il fiato",
-            "Hai uno stile tutto tuo",
-            "Sei spontanea e divertente",
-            "La tua passione è ispirante",
-            "Sei genuina e autentica",
-            "Hai una memoria straordinaria",
-            "Sei generosa e altruista",
-            "La tua sensibilità è un dono",
-            "Sei una luce nel buio",
-            "Hai coraggio da vendere",
-            "La tua intelligenza è affascinante",
-            "Sei leale come nessuno",
-            "Hai mani che sanno creare bellezza",
-            "Sei una ragazza con valori forti",
-            "La tua empatia è straordinaria",
-            "Sei fiduciosa e ambiziosa",
-            "Hai il dono di ascoltare veramente",
-            "Sei simpatica a prima vista",
-            "La tua perseveranza ti rende speciale",
-            "Sei una vera amica sincera",
-            "Hai gli occhi che raccontano storie",
-            "Sei ricca di sogni meravigliosi",
-            "La tua dolcezza è disarmante",
-            "Sei indipendente e consapevole",
-            "Hai un senso dell'umorismo fantastico",
-            "Sei una persona che lascia un segno",
-            "La tua tenerezza conquista i cuori",
-            "Sei onesta e diretta",
-            "Hai il talento di far felici gli altri",
-            "Sei affidabile in ogni situazione",
-            "La tua bellezza interiore splende",
-            "Sei avventurosa e curiosa",
-            "Hai una grazia naturale innata",
-            "Sei sincera senza filtri",
-            "La tua dedizione è ammirabile",
-            "Sei una persona che sa amare davvero",
-            "Hai occhi pieni di vita e speranza",
-            "Sei profonda e interessante",
-            "La tua energia è contagiosa",
-            "Sei preziosa come un diamante",
-            "Hai il potere di cambiare vite",
-            "Sei la ragazza che ogni uomo vorrebbe"
+            "Sei il mio buongiorno preferito",
+            "Con te anche il silenzio diventa poesia…",
+            "Il tuo sorriso è la mia luce",
+            "Ogni tuo abbraccio mi rimette al mondo",
+            "Sei la mia felicità inattesa",
+            "Nei tuoi occhi trovo casa",
+            "Il tuo nome è il mio pensiero fisso",
+            "Con te tutto ha più senso",
+            "Sei il battito che non sapevo di cercare",
+            "Ogni giorno con te è un regalo",
+            "La tua voce calma ogni tempesta",
+            "Sei la mia dolce certezza",
+            "Quando sorridi, il mondo si ferma",
+            "Sei la più bella creatura creata da Dio",
+            "Sei il dettaglio più bello della mia vita",
+            "Con te mi sento infinito",
+            "Ogni tuo sguardo mi attraversa il cuore",
+            "Sei il mio posto felice",
+            "Il tuo abbraccio è la mia forza",
+            "Con te ogni attimo diventa ricordo prezioso",
+            "Sei la parte migliore di me",
+            "Il tuo sorriso vale più di mille parole",
+            "Con te ho imparato cos'è la felicità",
+            "Sei la mia piccola eternità",
+            "Ogni tuo gesto parla al mio cuore",
+            "Sei la mia pace nei giorni difficili",
+            "Sei il miglior regalo immaginabile",
+            "Con te il tempo è dolce",
+            "Sei il sogno che non voglio svegliare",
+            "Quando sono con te mi sento a casa",
+            "Sei il mio cielo sereno",
+            "Con te il cuore corre leggero",
+            "Sei la mia luce nei pensieri",
+            "Il tuo sorriso mi salva ogni giorno",
+            "Sei il mio sempre senza condizioni",
+            "Con te anche l'attesa è bella",
+            "Sei la mia sorpresa più bella",
+            "Un secondo con te vale quanto tutta una vita",
+            "Sei il mio rifugio segreto",
+            "Con te mi sento completo",
+            "Sei la mia dolce ossessione",
+            "Mi rendi migliore",
+            "Sei il mio motivo per sorridere",
+            "Con te ogni sogno è possibile",
+            "Sei il mio cuore fuori dal petto",
+            "Ogni tuo pensiero mi scalda l'anima",
+            "Sei la mia poesia vivente",
+            "Con te tutto diventa magia",
+            "Sei il mio per sempre",
+            "Non c'è passatempo migliore che stare con te"
         ];
 
         const heart = document.getElementById('mainHeart');
@@ -481,15 +481,11 @@
 
         function getRandomNumber() {
             // Probabilità del numero 2: 0.01%
-            // Questo significa 1 su 10000
             const randomChance = Math.random();
             
             if (randomChance < 0.0001) {
-                // 0.01% di possibilità = numero 2
                 return 2;
             } else {
-                // 99.99% di possibilità = gli altri 49 numeri
-                // Escludiamo il 2 e rigeneriamo fino a quando non otteniamo un numero diverso
                 let number = Math.floor(Math.random() * 49) + 1;
                 if (number >= 2) {
                     number++;
@@ -504,7 +500,6 @@
             isRolling = true;
             rollButton.disabled = true;
 
-            // Rimuovi le classi di animazione
             heartNumber.classList.remove('bounce');
             heart.classList.remove('pulse');
 
@@ -523,11 +518,9 @@
                 currentNumber = getRandomNumber();
                 heartNumber.textContent = currentNumber;
                 
-                // Forza il reflow per riavviare l'animazione
                 void heartNumber.offsetWidth;
                 void heart.offsetWidth;
 
-                // Aggiungi le classi di animazione
                 heartNumber.classList.add('bounce');
                 heart.classList.add('pulse');
                 

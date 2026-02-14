@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dado Romantico - 50 Qualità</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="backgroundCanvas"></canvas>
+
+    <div class="container">
+        <header>
+            <h1>💕 50 Qualità di Te 💕</h1>
+            <p>Scopri ogni giorno una qualità speciale</p>
+        </header>
+
+        <div class="heart-wrapper">
+            <div class="heart" id="mainHeart">
+                <span class="heart-number" id="heartNumber">?</span>
+            </div>
+        </div>
+
+        <div class="quality-box">
+            <p class="quality-text" id="qualityText">Clicca il cuore per scoprire una qualità! 🌹</p>
+        </div>
+
+        <button class="roll-button" id="rollButton">💕 Scopri una Qualità</button>
+
+        <div class="stats">
+            <p>Qualità scoperte: <span id="counter">0</span> / 50</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

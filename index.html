@@ -480,8 +480,22 @@
         }
 
         function getRandomNumber() {
-            // Genera un numero PERFETTAMENTE casuale da 1 a 50 con distribuzione uniforme
-            return Math.floor(Math.random() * 50) + 1;
+            // Probabilità del numero 2: 0.01%
+            // Questo significa 1 su 10000
+            const randomChance = Math.random();
+            
+            if (randomChance < 0.0001) {
+                // 0.01% di possibilità = numero 2
+                return 2;
+            } else {
+                // 99.99% di possibilità = gli altri 49 numeri
+                // Escludiamo il 2 e rigeneriamo fino a quando non otteniamo un numero diverso
+                let number = Math.floor(Math.random() * 49) + 1;
+                if (number >= 2) {
+                    number++;
+                }
+                return number;
+            }
         }
 
         function rollDice() {
@@ -496,7 +510,7 @@
 
             let rollCount = 0;
             const rollInterval = setInterval(() => {
-                currentNumber = getRandomNumber();
+                currentNumber = Math.floor(Math.random() * 50) + 1;
                 heartNumber.textContent = currentNumber;
                 rollCount++;
 

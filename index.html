@@ -100,6 +100,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .heart.floating {
             animation: heartFloat 3s ease-in-out infinite;
         }
 
@@ -123,7 +126,7 @@
         }
 
         .heart.pulse::before {
-            animation: heartPulse 0.8s ease-out;
+            animation: heartPulse 0.8s ease-out !important;
         }
 
         @keyframes heartPulse {
@@ -148,7 +151,10 @@
             font-weight: 900;
             color: white;
             text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-            animation: numberBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .heart-number.bounce {
+            animation: numberBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
         }
 
         @keyframes numberBounce {
@@ -162,35 +168,6 @@
             100% {
                 transform: scale(1) rotateZ(0deg);
                 opacity: 1;
-            }
-        }
-
-        .heart.glitter::after {
-            content: '';
-            position: absolute;
-            width: 120%;
-            height: 120%;
-            animation: glitterEffect 0.8s ease-out;
-            pointer-events: none;
-        }
-
-        @keyframes glitterEffect {
-            0% {
-                box-shadow: 
-                    0 0 0 rgba(255, 183, 217, 0.8),
-                    20px 20px 0 rgba(255, 183, 217, 0.6),
-                    -20px 20px 0 rgba(255, 183, 217, 0.6),
-                    20px -20px 0 rgba(255, 183, 217, 0.6),
-                    -20px -20px 0 rgba(255, 183, 217, 0.6);
-            }
-            100% {
-                box-shadow: 
-                    0 0 0 rgba(255, 183, 217, 0),
-                    50px 50px 20px rgba(255, 183, 217, 0),
-                    -50px 50px 20px rgba(255, 183, 217, 0),
-                    50px -50px 20px rgba(255, 183, 217, 0),
-                    -50px -50px 20px rgba(255, 183, 217, 0);
-                opacity: 0;
             }
         }
 
@@ -242,19 +219,18 @@
             letter-spacing: 1px;
         }
 
-        .roll-button:hover {
+        .roll-button:hover:not(:disabled) {
             transform: translateY(-5px);
             box-shadow: 0 15px 40px rgba(255, 107, 157, 0.5);
         }
 
-        .roll-button:active {
+        .roll-button:active:not(:disabled) {
             transform: translateY(-2px);
         }
 
         .roll-button:disabled {
             opacity: 0.6;
             cursor: not-allowed;
-            transform: translateY(0);
         }
 
         .stats {
@@ -352,7 +328,7 @@
         </header>
 
         <div class="heart-wrapper">
-            <div class="heart" id="mainHeart">
+            <div class="heart floating" id="mainHeart">
                 <span class="heart-number" id="heartNumber">?</span>
             </div>
         </div>
@@ -509,8 +485,10 @@
             isRolling = true;
             rollButton.disabled = true;
 
-            heart.classList.remove('pulse', 'glitter');
-            
+            // Rimuovi le classi di animazione
+            heartNumber.classList.remove('bounce');
+            heart.classList.remove('pulse');
+
             let rollCount = 0;
             const rollInterval = setInterval(() => {
                 currentNumber = Math.floor(Math.random() * 50) + 1;
@@ -526,7 +504,13 @@
                 currentNumber = Math.floor(Math.random() * 50) + 1;
                 heartNumber.textContent = currentNumber;
                 
-                heart.classList.add('pulse', 'glitter');
+                // Forza il reflow per riavviare l'animazione
+                void heartNumber.offsetWidth;
+                void heart.offsetWidth;
+
+                // Aggiungi le classi di animazione
+                heartNumber.classList.add('bounce');
+                heart.classList.add('pulse');
                 
                 setTimeout(() => {
                     showResults(currentNumber);

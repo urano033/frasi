@@ -479,6 +479,11 @@
             });
         }
 
+        function getRandomNumber() {
+            // Genera un numero PERFETTAMENTE casuale da 1 a 50 con distribuzione uniforme
+            return Math.floor(Math.random() * 50) + 1;
+        }
+
         function rollDice() {
             if (isRolling) return;
 
@@ -491,17 +496,17 @@
 
             let rollCount = 0;
             const rollInterval = setInterval(() => {
-                currentNumber = Math.floor(Math.random() * 50) + 1;
+                currentNumber = getRandomNumber();
                 heartNumber.textContent = currentNumber;
                 rollCount++;
 
-                if (rollCount > 20) {
+                if (rollCount > 25) {
                     clearInterval(rollInterval);
                 }
-            }, 50);
+            }, 40);
 
             setTimeout(() => {
-                currentNumber = Math.floor(Math.random() * 50) + 1;
+                currentNumber = getRandomNumber();
                 heartNumber.textContent = currentNumber;
                 
                 // Forza il reflow per riavviare l'animazione

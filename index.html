@@ -4,7 +4,343 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dado Romantico - 50 Qualità</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink-main: #ff6b9d;
+            --pink-light: #ffb3d9;
+            --pink-pale: #fff5f9;
+            --red-accent: #ff1744;
+            --purple-soft: #d95e8c;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Georgia', 'Segoe UI', serif;
+            overflow: hidden;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fff5f9 0%, #ffe4ec 50%, #ffcdd2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        #backgroundCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.93);
+            border-radius: 40px;
+            padding: 60px 40px;
+            box-shadow: 0 30px 80px rgba(255, 107, 157, 0.3);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            animation: containerSlideIn 0.8s ease;
+            z-index: 1;
+        }
+
+        @keyframes containerSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            color: var(--pink-main);
+            margin-bottom: 10px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(255, 107, 157, 0.15);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #888;
+            font-style: italic;
+            margin-bottom: 40px;
+            letter-spacing: 0.5px;
+        }
+
+        .heart-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 350px;
+            margin: 30px 0;
+        }
+
+        .heart {
+            width: 250px;
+            height: 250px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: heartFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes heartFloat {
+            0%, 100% {
+                transform: translateY(0px) scale(1);
+            }
+            50% {
+                transform: translateY(-15px) scale(1.02);
+            }
+        }
+
+        .heart::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 90 C25 75, 5 60, 5 40 C5 25, 15 15, 25 15 C35 15, 45 25, 50 35 C55 25, 65 15, 75 15 C85 15, 95 25, 95 40 C95 60, 75 75, 50 90 Z" fill="%23ff1744" opacity="0.95"/></svg>') no-repeat center;
+            background-size: contain;
+            filter: drop-shadow(0 10px 30px rgba(255, 23, 68, 0.4));
+        }
+
+        .heart.pulse::before {
+            animation: heartPulse 0.8s ease-out;
+        }
+
+        @keyframes heartPulse {
+            0% {
+                transform: scale(1);
+                filter: drop-shadow(0 10px 30px rgba(255, 23, 68, 0.4));
+            }
+            50% {
+                transform: scale(1.15);
+                filter: drop-shadow(0 15px 40px rgba(255, 23, 68, 0.6));
+            }
+            100% {
+                transform: scale(1);
+                filter: drop-shadow(0 10px 30px rgba(255, 23, 68, 0.4));
+            }
+        }
+
+        .heart-number {
+            position: relative;
+            z-index: 10;
+            font-size: 4rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+            animation: numberBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes numberBounce {
+            0% {
+                transform: scale(0) rotateZ(-30deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.4) rotateZ(10deg);
+            }
+            100% {
+                transform: scale(1) rotateZ(0deg);
+                opacity: 1;
+            }
+        }
+
+        .heart.glitter::after {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            animation: glitterEffect 0.8s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes glitterEffect {
+            0% {
+                box-shadow: 
+                    0 0 0 rgba(255, 183, 217, 0.8),
+                    20px 20px 0 rgba(255, 183, 217, 0.6),
+                    -20px 20px 0 rgba(255, 183, 217, 0.6),
+                    20px -20px 0 rgba(255, 183, 217, 0.6),
+                    -20px -20px 0 rgba(255, 183, 217, 0.6);
+            }
+            100% {
+                box-shadow: 
+                    0 0 0 rgba(255, 183, 217, 0),
+                    50px 50px 20px rgba(255, 183, 217, 0),
+                    -50px 50px 20px rgba(255, 183, 217, 0),
+                    50px -50px 20px rgba(255, 183, 217, 0),
+                    -50px -50px 20px rgba(255, 183, 217, 0);
+                opacity: 0;
+            }
+        }
+
+        .quality-box {
+            background: linear-gradient(135deg, rgba(255, 183, 217, 0.2) 0%, rgba(255, 192, 203, 0.2) 100%);
+            border-radius: 20px;
+            padding: 30px 20px;
+            margin: 30px 0;
+            border-left: 5px solid var(--pink-main);
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quality-text {
+            font-size: 1.4rem;
+            color: var(--purple-soft);
+            font-style: italic;
+            font-weight: 600;
+            line-height: 1.6;
+            animation: qualityFadeIn 0.8s ease;
+        }
+
+        @keyframes qualityFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .roll-button {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(135deg, var(--pink-main) 0%, var(--red-accent) 100%);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+            margin: 30px 0;
+            letter-spacing: 1px;
+        }
+
+        .roll-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.5);
+        }
+
+        .roll-button:active {
+            transform: translateY(-2px);
+        }
+
+        .roll-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: translateY(0);
+        }
+
+        .stats {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 600;
+            padding-top: 20px;
+            border-top: 2px solid var(--pink-light);
+        }
+
+        .stats span {
+            color: var(--pink-main);
+            font-weight: 900;
+            font-size: 1.3rem;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                padding: 40px 25px;
+                border-radius: 30px;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .heart {
+                width: 200px;
+                height: 200px;
+            }
+
+            .heart-number {
+                font-size: 3rem;
+            }
+
+            .quality-text {
+                font-size: 1.1rem;
+            }
+
+            .roll-button {
+                font-size: 1rem;
+                padding: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 15px;
+                width: 95%;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+                margin-bottom: 5px;
+            }
+
+            header p {
+                font-size: 0.9rem;
+                margin-bottom: 25px;
+            }
+
+            .heart-wrapper {
+                height: 280px;
+                margin: 15px 0;
+            }
+
+            .heart {
+                width: 150px;
+                height: 150px;
+            }
+
+            .heart-number {
+                font-size: 2.2rem;
+            }
+
+            .quality-text {
+                font-size: 1rem;
+                padding: 15px 10px;
+            }
+
+            .quality-box {
+                padding: 20px 15px;
+                min-height: 80px;
+            }
+        }
+    </style>
 </head>
 <body>
     <canvas id="backgroundCanvas"></canvas>
@@ -32,6 +368,189 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        const QUALITIES = [
+            "Sei dolce come il miele",
+            "Hai un sorriso che illumina tutto",
+            "Sei intelligente e affascinante",
+            "La tua risata è contagiosa",
+            "Sei incredibilmente creativa",
+            "Hai un cuore d'oro",
+            "Sei forte e resiliente",
+            "La tua lealtà è rara",
+            "Sei bellissima da togliere il fiato",
+            "Hai uno stile tutto tuo",
+            "Sei spontanea e divertente",
+            "La tua passione è ispirante",
+            "Sei genuina e autentica",
+            "Hai una memoria straordinaria",
+            "Sei generosa e altruista",
+            "La tua sensibilità è un dono",
+            "Sei una luce nel buio",
+            "Hai coraggio da vendere",
+            "La tua intelligenza è affascinante",
+            "Sei leale come nessuno",
+            "Hai mani che sanno creare bellezza",
+            "Sei una ragazza con valori forti",
+            "La tua empatia è straordinaria",
+            "Sei fiduciosa e ambiziosa",
+            "Hai il dono di ascoltare veramente",
+            "Sei simpatica a prima vista",
+            "La tua perseveranza ti rende speciale",
+            "Sei una vera amica sincera",
+            "Hai gli occhi che raccontano storie",
+            "Sei ricca di sogni meravigliosi",
+            "La tua dolcezza è disarmante",
+            "Sei indipendente e consapevole",
+            "Hai un senso dell'umorismo fantastico",
+            "Sei una persona che lascia un segno",
+            "La tua tenerezza conquista i cuori",
+            "Sei onesta e diretta",
+            "Hai il talento di far felici gli altri",
+            "Sei affidabile in ogni situazione",
+            "La tua bellezza interiore splende",
+            "Sei avventurosa e curiosa",
+            "Hai una grazia naturale innata",
+            "Sei sincera senza filtri",
+            "La tua dedizione è ammirabile",
+            "Sei una persona che sa amare davvero",
+            "Hai occhi pieni di vita e speranza",
+            "Sei profonda e interessante",
+            "La tua energia è contagiosa",
+            "Sei preziosa come un diamante",
+            "Hai il potere di cambiare vite",
+            "Sei la ragazza che ogni uomo vorrebbe"
+        ];
+
+        const heart = document.getElementById('mainHeart');
+        const heartNumber = document.getElementById('heartNumber');
+        const qualityText = document.getElementById('qualityText');
+        const rollButton = document.getElementById('rollButton');
+        const counter = document.getElementById('counter');
+
+        let isRolling = false;
+        let discoveredQualities = new Set();
+        let currentNumber = 1;
+
+        function setupBackground() {
+            const canvas = document.getElementById('backgroundCanvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const hearts = [];
+
+            class Heart {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 20 + 10;
+                    this.speedY = Math.random() * 0.5 + 0.2;
+                    this.speedX = Math.sin(this.x / canvas.width * Math.PI) * 0.5;
+                    this.opacity = Math.random() * 0.3 + 0.1;
+                    this.rotation = Math.random() * Math.PI * 2;
+                }
+
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.opacity;
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.rotation);
+                    
+                    ctx.fillStyle = '#ff69b4';
+                    ctx.beginPath();
+                    ctx.moveTo(0, -this.size / 4);
+                    ctx.bezierCurveTo(-this.size / 2, -this.size / 2, -this.size / 2, 0, 0, this.size / 2);
+                    ctx.bezierCurveTo(this.size / 2, 0, this.size / 2, -this.size / 2, 0, -this.size / 4);
+                    ctx.fill();
+                    
+                    ctx.restore();
+                }
+
+                update() {
+                    this.y -= this.speedY;
+                    this.x += this.speedX;
+                    this.rotation += 0.01;
+
+                    if (this.y < -30) {
+                        this.y = canvas.height + 30;
+                        this.x = Math.random() * canvas.width;
+                    }
+                }
+            }
+
+            for (let i = 0; i < 30; i++) {
+                hearts.push(new Heart());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                hearts.forEach(h => {
+                    h.update();
+                    h.draw();
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
+        function rollDice() {
+            if (isRolling) return;
+
+            isRolling = true;
+            rollButton.disabled = true;
+
+            heart.classList.remove('pulse', 'glitter');
+            
+            let rollCount = 0;
+            const rollInterval = setInterval(() => {
+                currentNumber = Math.floor(Math.random() * 50) + 1;
+                heartNumber.textContent = currentNumber;
+                rollCount++;
+
+                if (rollCount > 20) {
+                    clearInterval(rollInterval);
+                }
+            }, 50);
+
+            setTimeout(() => {
+                currentNumber = Math.floor(Math.random() * 50) + 1;
+                heartNumber.textContent = currentNumber;
+                
+                heart.classList.add('pulse', 'glitter');
+                
+                setTimeout(() => {
+                    showResults(currentNumber);
+                    isRolling = false;
+                    rollButton.disabled = false;
+                }, 800);
+            }, 1000);
+        }
+
+        function showResults(number) {
+            const quality = QUALITIES[number - 1];
+            qualityText.textContent = `✨ "${quality}" ✨`;
+            
+            discoveredQualities.add(number);
+            counter.textContent = discoveredQualities.size;
+        }
+
+        rollButton.addEventListener('click', rollDice);
+        heart.addEventListener('click', rollDice);
+
+        window.addEventListener('load', () => {
+            setupBackground();
+            showResults(1);
+        });
+    </script>
 </body>
 </html>
